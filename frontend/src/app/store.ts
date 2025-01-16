@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { artistReducer } from '../store/slices/artistSlice.ts';
+import { albumReducer } from '../store/slices/albumSlice.ts';
 
 export const store = configureStore({
   reducer: {
-    artists: artistReducer
+    artists: artistReducer,
+    albums: albumReducer,
   },
 });
 

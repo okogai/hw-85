@@ -38,7 +38,7 @@ const ArtistList = () => {
         {artists.map((artist) => (
           <Grid size={6} key={artist._id}>
             <Card>
-              <Link to={`/artists/${artist._id}`} style={{ textDecoration: 'none', textAlign: 'center' }}>
+              <Link to={`/artist/${artist._id}`} style={{ textDecoration: 'none', textAlign: 'center' }}>
                 <CardMedia
                   component="img"
                   height="300"
