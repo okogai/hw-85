@@ -26,6 +26,11 @@ const AlbumsList = () => {
 
   return (
     <Container sx={{ mt: 4 }}>
+      {albums.length > 0 && (
+        <Typography variant="h4" gutterBottom style={{ textAlign: 'center' }}>
+          Albums by {albums[0].artist.name}
+        </Typography>
+      )}
       <Grid container spacing={3}>
         {albums.map((album) => (
           <Grid size={6} key={album._id}>

@@ -5,9 +5,11 @@ export interface Artist {
 }
 
 interface Track {
+  _id: string;
   trackNumber: number;
   title: string;
   duration: string;
+  album: Album
 }
 
 interface Album {

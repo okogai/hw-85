@@ -10,24 +10,40 @@ tracksRouter.get('/', async (req, res, next) => {
 
     try {
         if (album) {
-            const tracks = await Track.find({ album }).sort({ trackNumber: 1 });
+            const tracks = await Track.find({ album })
+                .sort({ trackNumber: 1 })
+                .populate({
+                    path: 'album',
+                    populate: { path: 'artist' },
+                });
             res.send(tracks);
             return;
         }
 
         if (artist) {
             const albums = await Album.find({ artist });
-            const tracks = await Track.find({ album: { $in: albums.map(album => album._id) } }).sort({ trackNumber: 1 });
+            const tracks = await Track.find({ album: { $in: albums.map(album => album._id) } })
+                .sort({ trackNumber: 1 })
+                .populate({
+                    path: 'album',
+                    populate: { path: 'artist' },
+                });
             res.send(tracks);
             return;
         }
 
-        const results = await Track.find().sort({ trackNumber: 1 });
+        const results = await Track.find()
+            .sort({ trackNumber: 1 })
+            .populate({
+                path: 'album',
+                populate: { path: 'artist' },
+            });
         res.send(results);
     } catch (e) {
         next(e);
     }
 });
+
 
 tracksRouter.post('/', async (req, res, next) => {
     const { title, album, duration, trackNumber } = req.body;
