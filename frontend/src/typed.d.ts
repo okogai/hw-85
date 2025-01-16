@@ -18,4 +18,5 @@ interface Album {
   year: number;
   cover: string;
   artist: Artist
+  trackCount: number;
 }

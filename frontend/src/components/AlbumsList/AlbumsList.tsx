@@ -18,7 +18,7 @@ const AlbumsList = () => {
 
   if (loading) {
     return (
-      <Container>
+      <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
         <CircularProgress />
       </Container>
     );
@@ -42,9 +42,12 @@ const AlbumsList = () => {
                 image={`http://localhost:8000/${album.cover}`}
               />
               <CardContent>
-                <Typography variant="h6">{album.title}</Typography>
-                <Typography variant="body2" color="textSecondary" sx={{mb: 2}}>
+                <Typography variant="h6" sx={{mb: 2}}>{album.title}</Typography>
+                <Typography variant="body2" color="textSecondary" sx={{mb: 1}}>
                   Year: {album.year}
+                </Typography>
+                <Typography variant="body2" color="textSecondary" sx={{ mb: 2 }}>
+                  Track Count: {album.trackCount}
                 </Typography>
                 <Link to={`/album/${album._id}`}>
                   <Button variant="contained" color="primary">
