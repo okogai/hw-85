@@ -1,21 +1,23 @@
 import React, { useState } from 'react';
 import { RegisterMutation } from '../../typed';
-import { Avatar, Box, Button, Container, TextField, Typography } from '@mui/material';
+import { Alert, Avatar, Box, Button, Container, TextField, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useAppDispatch, useAppSelector } from '../../app/hooks.ts';
 import { useNavigate } from 'react-router-dom';
-import { selectRegisterError } from '../../store/slices/userSlice.ts';
-import { register } from '../../store/thunks/userThunk.ts';
+import { selectLoginError } from '../../store/slices/userSlice.ts';
+import { login } from '../../store/thunks/userThunk.ts';
+
+const initialState = {
+  username: '',
+  password: '',
+}
 
 const RegisterPage = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const registerError = useAppSelector(selectRegisterError);
-  const [form, setForm] = useState<RegisterMutation>({
-    username: '',
-    password: '',
-  });
+  const loginError = useAppSelector(selectLoginError);
+  const [form, setForm] = useState<RegisterMutation>(initialState);
 
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = e.target;
@@ -24,20 +26,8 @@ const RegisterPage = () => {
 
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      await dispatch(register(form)).unwrap();
-      navigate('/');
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  const getFieldError = (fieldName: string) => {
-    try {
-      return registerError?.errors[fieldName].message;
-    } catch {
-      return undefined;
-    }
+    await dispatch(login(form)).unwrap();
+    navigate('/');
   };
 
   return (
@@ -54,8 +44,15 @@ const RegisterPage = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          Sign in
         </Typography>
+
+        {loginError && (
+          <Alert severity={"error"} sx={{mt: 3, width: '100%'}}>
+            {loginError.error}
+          </Alert>
+        )}
+
         <Box component="form" noValidate onSubmit={submitHandler} sx={{ mt: 3 }}>
           <Grid container direction={'column'} size={12} spacing={2}>
             <Grid size={12}>
@@ -67,8 +64,6 @@ const RegisterPage = () => {
                 name="username"
                 value={form.username}
                 onChange={inputChangeHandler}
-                error={Boolean(getFieldError('username'))}
-                helperText={getFieldError('username')}
               />
             </Grid>
             <Grid size={12}>
@@ -81,8 +76,6 @@ const RegisterPage = () => {
                 id="password"
                 value={form.password}
                 onChange={inputChangeHandler}
-                error={Boolean(getFieldError('password'))}
-                helperText={getFieldError('password')}
               />
             </Grid>
           </Grid>

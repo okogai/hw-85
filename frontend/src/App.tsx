@@ -2,8 +2,9 @@ import { Route, Routes } from "react-router-dom";
 import ArtistList from './components/ArtistList/ArtistList.tsx';
 import AlbumsList from './components/AlbumsList/AlbumsList.tsx';
 import TracksList from './components/TracksList/TracksList.tsx';
-import NavBar from './components/NavBar/NavBar.tsx';
+import NavBar from './components/UI/NavBar/NavBar.tsx';
 import RegisterPage from './components/RegisterPage/RegisterPage.tsx';
+import LoginForm from './components/LoginForm/LoginForm.tsx';
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
         <Route path="/artist/:id" element={<AlbumsList/>}/>
         <Route path="/album/:id" element={<TracksList/>}/>
         <Route path="/register" element={<RegisterPage/>}/>
+        <Route path="/login" element={<LoginForm/>}/>
       </Routes>
     </>
   );
