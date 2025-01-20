@@ -1,4 +1,4 @@
-import { AppBar, Box, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material';
 import { NavLink } from "react-router-dom";
 
 const NavBar = () => {
@@ -15,6 +15,16 @@ const NavBar = () => {
           >
             Home
           </Typography>
+          <Box sx={{ ml: 'auto', display: 'flex' }}>
+            <Button
+              color="inherit"
+              variant="text"
+              component={NavLink}
+              to="/register"
+            >
+              Register
+            </Button>
+          </Box>
         </Toolbar>
       </AppBar>
     </Box>
