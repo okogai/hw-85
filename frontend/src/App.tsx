@@ -20,6 +20,7 @@ const App = () => {
         <Route path="/register" element={<RegisterPage/>}/>
         <Route path="/login" element={<LoginForm/>}/>
         <Route path="/track_history" element={<TrackHistory/>}/>
+        <Route path="*" element={<h1>Not found</h1>} />
       </Routes>
     </>
   );
