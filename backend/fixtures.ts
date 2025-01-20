@@ -19,36 +19,37 @@ const run = async () => {
     ]);
 
     await Track.create([
-        { title: 'Sorry', album: album1._id, trackNumber: 1, duration: '3:45' },
-        { title: 'Desire', album: album1._id, trackNumber: 2, duration: '4:10' },
-        { title: 'Lemon Eyes', album: album1._id, trackNumber: 3, duration: '3:50' },
-        { title: 'Make a Shadow', album: album1._id, trackNumber: 4, duration: '4:23' },
-        { title: 'Monster', album: album1._id, trackNumber: 5, duration: '3:55' },
+        { title: 'Sorry', album: album1._id, trackNumber: 1, duration: '3:45', youtubeLink: 'https://www.youtube.com/watch?v=Ym1J5IAk2P4&ab_channel=MEGMYERS' },
+        { title: 'Desire', album: album1._id, trackNumber: 2, duration: '4:10', youtubeLink: 'https://www.youtube.com/watch?v=bR5u9jb0PJE&ab_channel=MEGMYERS' },
+        { title: 'Lemon Eyes', album: album1._id, trackNumber: 3, duration: '3:50', youtubeLink: 'https://www.youtube.com/watch?v=PqG9hsjLf3M&ab_channel=MEGMYERS' },
+        { title: 'Make a Shadow', album: album1._id, trackNumber: 4, duration: '4:23', youtubeLink: 'https://www.youtube.com/watch?v=J-z4sUKWd6Q&ab_channel=MEGMYERS' },
+        { title: 'Monster', album: album1._id, trackNumber: 5, duration: '3:55', youtubeLink: 'https://www.youtube.com/watch?v=GVQqZg5BisE&ab_channel=MEGMYERS' },
     ]);
 
     await Track.create([
-        { title: 'Dead', album: album2._id, trackNumber: 1, duration: '5:01' },
-        { title: 'Falling Away from Me', album: album2._id, trackNumber: 2, duration: '4:29' },
-        { title: 'Twisted Transistor', album: album2._id, trackNumber: 3, duration: '3:52' },
-        { title: 'Make Me Bad', album: album2._id, trackNumber: 4, duration: '3:49' },
-        { title: 'Here to Stay', album: album2._id, trackNumber: 5, duration: '4:32' },
+        { title: 'Dead', album: album2._id, trackNumber: 1, duration: '5:01', youtubeLink: 'https://www.youtube.com/watch?v=MQ4CXxhAF8k&ab_channel=PredictableClown71' },
+        { title: 'Falling Away from Me', album: album2._id, trackNumber: 2, duration: '4:29', youtubeLink: 'https://www.youtube.com/watch?v=2s3iGpDqQpQ&ab_channel=KornVEVO' },
+        { title: 'Twisted Transistor', album: album2._id, trackNumber: 3, duration: '3:52', youtubeLink: 'https://www.youtube.com/watch?v=uAq6RjSuwXQ&ab_channel=DavidHmeljov' },
+        { title: 'Make Me Bad', album: album2._id, trackNumber: 4, duration: '3:49', youtubeLink: 'https://www.youtube.com/watch?v=ujEph5vFwmc&ab_channel=KornVEVO' },
+        { title: 'Here to Stay', album: album2._id, trackNumber: 5, duration: '4:32', youtubeLink: 'https://www.youtube.com/watch?v=pr3x7tS__dE&ab_channel=KornVEVO' },
     ]);
 
     await Track.create([
-        { title: 'Here to Stay', album: album3._id, trackNumber: 1, duration: '4:22' },
-        { title: 'Alone I Break', album: album3._id, trackNumber: 2, duration: '4:12' },
-        { title: 'Thoughtless', album: album3._id, trackNumber: 3, duration: '3:35' },
-        { title: 'Got the Life', album: album3._id, trackNumber: 4, duration: '3:38' },
-        { title: 'Wake Up Hate', album: album3._id, trackNumber: 5, duration: '4:40' },
+        { title: 'Here to Stay', album: album3._id, trackNumber: 1, duration: '4:22', youtubeLink: 'https://www.youtube.com/watch?v=pr3x7tS__dE&ab_channel=KornVEVO' },
+        { title: 'Alone I Break', album: album3._id, trackNumber: 2, duration: '4:12', youtubeLink: 'https://www.youtube.com/watch?v=V3GA2d-J2_A&ab_channel=KornVEVO' },
+        { title: 'Thoughtless', album: album3._id, trackNumber: 3, duration: '3:35', youtubeLink: 'https://www.youtube.com/watch?v=xVPvzX-AeSM&ab_channel=KornVEVO' },
+        { title: 'Got the Life', album: album3._id, trackNumber: 4, duration: '3:38', youtubeLink: 'https://www.youtube.com/watch?v=VAWjsVoDpm0&ab_channel=KornVEVO' },
+        { title: 'Wake Up Hate', album: album3._id, trackNumber: 5, duration: '4:40', youtubeLink: 'https://www.youtube.com/watch?v=WLJY-N9QSD8&ab_channel=PredictableClown71' },
     ]);
 
     await Track.create([
-        { title: 'Take Me to the Disco', album: album4._id, trackNumber: 1, duration: '3:53' },
-        { title: 'Numb', album: album4._id, trackNumber: 2, duration: '4:22' },
-        { title: 'Tear Me to Pieces', album: album4._id, trackNumber: 3, duration: '3:26' },
-        { title: 'Some People', album: album4._id, trackNumber: 4, duration: '3:56' },
-        { title: 'Done', album: album4._id, trackNumber: 5, duration: '3:26' },
+        { title: 'Take Me to the Disco', album: album4._id, trackNumber: 1, duration: '3:53', youtubeLink: 'https://www.youtube.com/watch?v=BMFWkdX_yn0&ab_channel=MEGMYERS' },
+        { title: 'Numb', album: album4._id, trackNumber: 2, duration: '4:22', youtubeLink: 'https://www.youtube.com/watch?v=ORaln6aPqUk&ab_channel=MEGMYERS' },
+        { title: 'Tear Me to Pieces', album: album4._id, trackNumber: 3, duration: '3:26', youtubeLink: 'https://www.youtube.com/watch?v=c92Isg49BOo&ab_channel=MEGMYERS' },
+        { title: 'Some People', album: album4._id, trackNumber: 4, duration: '3:56', youtubeLink: 'https://www.youtube.com/watch?v=GbypV28z1ro&ab_channel=MEGMYERS' },
+        { title: 'Done', album: album4._id, trackNumber: 5, duration: '3:26', youtubeLink: 'https://www.youtube.com/watch?v=ZWC88LUhhjA&ab_channel=MEGMYERS' },
     ]);
+
 
     console.log('Fixtures added');
     await mongoose.connection.close();

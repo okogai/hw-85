@@ -5,6 +5,31 @@ import auth, {RequestWithUser} from "../middleware/auth";
 
 const trackHistoryRouter = express.Router();
 
+trackHistoryRouter.get('/', auth, async (req, res, next) => {
+    const user = (req as RequestWithUser).user;
+    if (!user){
+        res.status(401).send({error: 'Token not provided!'});
+        return;
+    }
+
+    try {
+        const trackHistory = await TrackHistory.find({ user: user._id })
+            .populate({
+                path: 'track',
+                populate: {
+                    path: 'album',
+                    populate: {
+                        path: 'artist',
+                    },
+                },
+            })
+            .sort({ datetime: -1 });
+        res.send(trackHistory);
+    } catch (e) {
+        next(e);
+    }
+});
+
 trackHistoryRouter.post('/', auth, async (req, res, next) => {
     const user = (req as RequestWithUser).user;
     if (!user){

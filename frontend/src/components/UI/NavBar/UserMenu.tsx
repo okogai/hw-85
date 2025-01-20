@@ -4,6 +4,7 @@ import { User } from '../../../typed';
 import { useAppDispatch } from '../../../app/hooks.ts';
 import { unsetUser } from '../../../store/slices/userSlice.ts';
 import { logout } from '../../../store/thunks/userThunk.ts';
+import { NavLink } from 'react-router-dom';
 
 interface Props {
   user: User;
@@ -28,6 +29,13 @@ const UserMenu: React.FC<Props> = ({user}) => {
 
   return (
     <>
+      <Button
+        color="inherit"
+        component={NavLink}
+        to='/track_history'
+      >
+       Track history
+      </Button>
       <Button
         onClick={handleClick}
         color="inherit"

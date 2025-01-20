@@ -5,6 +5,7 @@ import TracksList from './components/TracksList/TracksList.tsx';
 import NavBar from './components/UI/NavBar/NavBar.tsx';
 import RegisterPage from './components/RegisterPage/RegisterPage.tsx';
 import LoginForm from './components/LoginForm/LoginForm.tsx';
+import TrackHistory from './components/TrackHistory/TrackHistory.tsx';
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/album/:id" element={<TracksList/>}/>
         <Route path="/register" element={<RegisterPage/>}/>
         <Route path="/login" element={<LoginForm/>}/>
+        <Route path="/track_history" element={<TrackHistory/>}/>
       </Routes>
     </>
   );

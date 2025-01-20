@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import { RegisterMutation } from '../../typed';
-import { Avatar, Box, Button, Container, TextField, Typography } from '@mui/material';
+import { Avatar, Box, Button, CircularProgress, Container, TextField, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { useAppDispatch, useAppSelector } from '../../app/hooks.ts';
 import { useNavigate } from 'react-router-dom';
-import { selectRegisterError } from '../../store/slices/userSlice.ts';
+import { selectRegisterError, selectRegisterLoading } from '../../store/slices/userSlice.ts';
 import { register } from '../../store/thunks/userThunk.ts';
 
 const RegisterPage = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const registerError = useAppSelector(selectRegisterError);
+  const registerLoading = useAppSelector(selectRegisterLoading);
   const [form, setForm] = useState<RegisterMutation>({
     username: '',
     password: '',
@@ -51,7 +52,7 @@ const RegisterPage = () => {
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-          <LockOutlinedIcon />
+          <PersonAddIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign up
@@ -92,7 +93,7 @@ const RegisterPage = () => {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Sign Up
+            {registerLoading ? <CircularProgress size={24} color="inherit" /> : 'Sign Up'}
           </Button>
         </Box>
       </Box>

@@ -9,7 +9,8 @@ interface Track {
   trackNumber: number;
   title: string;
   duration: string;
-  album: Album
+  album: Album;
+  youtubeLink: string;
 }
 
 interface Album {
@@ -56,4 +57,18 @@ export interface LoginMutation {
 
 export interface GlobalError {
   error: string;
+}
+
+export interface TrackHistory {
+  _id: string;
+  track: {
+    title: string;
+    duration: string;
+    album: {
+      artist: {
+        name: string;
+      }
+    }
+  };
+  datetime: string;
 }
