@@ -19,8 +19,15 @@ artistsRouter.get('/', async (_req, res, next) => {
 });
 
 artistsRouter.post('/', imagesUpload.single('photo'), auth, permit('user'), async (req, res, next) => {
-    const { name, info} = req.body;
+    const { name } = req.body;
     const photo = req.file ? `/public/images/${req.file.filename}` : null;
+
+    const user = (req as RequestWithUser).user;
+
+    if (!user){
+        res.status(401).send({error: 'Token not provided!'});
+        return;
+    }
 
     if (!name) {
         res.status(400).send({ error: 'Field name is required' });
@@ -28,7 +35,7 @@ artistsRouter.post('/', imagesUpload.single('photo'), auth, permit('user'), asyn
     }
 
     try {
-        const artist = new Artist({ name, photo, info });
+        const artist = new Artist({ name, photo, creator: user._id});
         await artist.save();
         res.send(artist);
     } catch (e) {

@@ -50,6 +50,13 @@ tracksRouter.get('/', async (req, res, next) => {
 tracksRouter.post('/', auth, permit('user'), async (req, res, next) => {
     const { title, album, duration, trackNumber } = req.body;
 
+    const user = (req as RequestWithUser).user;
+
+    if (!user){
+        res.status(401).send({error: 'Token not provided!'});
+        return;
+    }
+
     if (mongoose.Types.ObjectId.isValid(album)) {
         const album = await Album.findById(req.body.album);
         if (!album) res.status(404).send('Album not found');
@@ -59,7 +66,7 @@ tracksRouter.post('/', auth, permit('user'), async (req, res, next) => {
     }
 
     try {
-        const track = new Track({ title, album, duration, trackNumber });
+        const track = new Track({ title, album, duration, trackNumber, creator: user._id });
         await track.save();
         res.send(track);
     } catch (e) {

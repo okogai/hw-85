@@ -65,6 +65,13 @@ albumsRouter.post('/', imagesUpload.single('cover'), auth, permit('user'), async
     const { title, artist, year } = req.body;
     const cover = req.file ? `/public/images/${req.file.filename}` : null;
 
+    const user = (req as RequestWithUser).user;
+
+    if (!user){
+        res.status(401).send({error: 'Token not provided!'});
+        return;
+    }
+
     if (mongoose.Types.ObjectId.isValid(artist)) {
        const artist = await Artist.findById(req.body.artist);
        if (!artist) res.status(404).send('Artist not found');
@@ -74,7 +81,7 @@ albumsRouter.post('/', imagesUpload.single('cover'), auth, permit('user'), async
     }
 
     try {
-        const album = new Album({ title, artist, year, cover });
+        const album = new Album({ title, artist, year, cover, creator: user._id });
         await album.save();
         res.send(album);
     } catch (e) {

@@ -1,7 +1,17 @@
 export interface Artist {
   _id: string;
   name: string;
+  info: string;
   photo: string;
+  isPublished: boolean;
+  creator: string;
+}
+
+export interface ArtistMutation {
+  name: string;
+  info: string;
+  photo: File | null;
+  creator: string;
 }
 
 interface Track {
@@ -11,6 +21,7 @@ interface Track {
   duration: string;
   album: Album;
   youtubeLink: string;
+  isPublished: boolean;
 }
 
 interface Album {
@@ -20,6 +31,7 @@ interface Album {
   cover: string;
   artist: Artist
   trackCount: number;
+  isPublished: boolean;
 }
 
 export interface User {
