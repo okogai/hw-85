@@ -2,6 +2,8 @@ import express from "express";
 import Album from "../models/Album";
 import Track from "../models/Track";
 import mongoose from "mongoose";
+import auth from "../middleware/auth";
+import permit from "../middleware/permit";
 
 const tracksRouter = express.Router();
 
@@ -45,7 +47,7 @@ tracksRouter.get('/', async (req, res, next) => {
 });
 
 
-tracksRouter.post('/', async (req, res, next) => {
+tracksRouter.post('/', auth, permit('user'), async (req, res, next) => {
     const { title, album, duration, trackNumber } = req.body;
 
     if (mongoose.Types.ObjectId.isValid(album)) {

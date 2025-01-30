@@ -22,6 +22,10 @@ const TrackSchema = new Schema({
     },
     youtubeLink: {
         type: String
+    },
+    isPublished: {
+        type: Boolean,
+        default: false
     }
 });
 

@@ -2,9 +2,21 @@ import mongoose from 'mongoose';
 import Track from "./models/Track";
 import Artist from "./models/Artist";
 import Album from "./models/Album";
+import User from "./models/User";
 
 const run = async () => {
     await mongoose.connect('mongodb://localhost/discography');
+    const db = mongoose.connection;
+
+    try {
+        await db.dropCollection('albums');
+        await db.dropCollection('artists');
+        await db.dropCollection('trackHistories');
+        await db.dropCollection('tracks');
+        await db.dropCollection('users');
+    } catch (e) {
+        console.log('Collections were not presents, skipping drop');
+    }
 
     const [megMyers, korn] = await Artist.create([
         { name: 'Meg Myers', photo: 'public/images/meg_myers.jpg', info: 'Meg Myers is an American singer-songwriter and musician.' },
@@ -49,6 +61,18 @@ const run = async () => {
         { title: 'Some People', album: album4._id, trackNumber: 4, duration: '3:56', youtubeLink: 'https://www.youtube.com/watch?v=GbypV28z1ro&ab_channel=MEGMYERS' },
         { title: 'Done', album: album4._id, trackNumber: 5, duration: '3:26', youtubeLink: 'https://www.youtube.com/watch?v=ZWC88LUhhjA&ab_channel=MEGMYERS' },
     ]);
+
+    await User.create({
+        username: "user",
+        password: "123",
+        token: crypto.randomUUID(),
+        role: "user"
+    }, {
+        username: "admin",
+        password: "123",
+        token: crypto.randomUUID(),
+        role: "admin"
+    });
 
 
     console.log('Fixtures added');

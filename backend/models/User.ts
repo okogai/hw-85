@@ -6,6 +6,7 @@ interface UserFields {
     username: string;
     password: string;
     token: string;
+    role: string;
 }
 
 type UserModel = Model<UserFields, {}, UserMethods>;
@@ -36,6 +37,12 @@ const UserSchema = new Schema<HydratedDocument<UserFields>, UserModel, UserMetho
     password: {
         type: String,
         required: [true, 'Password is required'],
+    },
+    role: {
+        type: String,
+        required: true,
+        default: 'user',
+        enum: ['user', 'admin']
     },
     token: {
         type: String,

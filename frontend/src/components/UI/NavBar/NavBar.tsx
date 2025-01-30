@@ -10,7 +10,7 @@ const NavBar = () => {
   const user = useAppSelector(selectUser);
 
   return (
-    <Box sx={{ flexGrow: 1, mb: 5 }}>
+    <Box>
       <AppBar position="static">
         <Toolbar>
           <Typography

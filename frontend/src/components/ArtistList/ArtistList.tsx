@@ -30,8 +30,8 @@ const ArtistList = () => {
   }
 
   return (
-    <Container sx={{ mt: 4 }}>
-      <Typography variant="h4" gutterBottom  style={{textAlign: 'center' }}>
+    <Container sx={{ mt: 3 }}>
+      <Typography variant="h4" gutterBottom sx={{ textTransform: 'uppercase', textAlign: 'center', fontWeight: 300 }}>
         Artists
       </Typography>
       <Grid container spacing={3}>

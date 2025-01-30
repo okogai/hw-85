@@ -27,7 +27,13 @@ const TrackHistory = () => {
 
   return (
     <Container maxWidth="sm">
-      <Typography variant="h4" sx={{ mt: 5, mb: 3, textAlign: 'center' }}>
+      <Typography variant="h4" sx={{
+        textTransform: 'uppercase',
+        textAlign: 'center',
+        fontWeight: 300,
+        mt: 3,
+        mb: 3
+      }}>
         Track history
       </Typography>
 

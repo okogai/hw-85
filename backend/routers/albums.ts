@@ -4,6 +4,8 @@ import Artist from "../models/Artist";
 import mongoose from "mongoose";
 import {imagesUpload} from "../multer";
 import Track from "../models/Track";
+import auth from "../middleware/auth";
+import permit from "../middleware/permit";
 
 const albumsRouter = express.Router();
 
@@ -59,7 +61,7 @@ albumsRouter.get('/:id', async (req, res, next) => {
     }
 });
 
-albumsRouter.post('/', imagesUpload.single('cover'), async (req, res, next) => {
+albumsRouter.post('/', imagesUpload.single('cover'), auth, permit('user'), async (req, res, next) => {
     const { title, artist, year } = req.body;
     const cover = req.file ? `/public/images/${req.file.filename}` : null;
 

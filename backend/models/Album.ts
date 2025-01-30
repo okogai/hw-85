@@ -17,6 +17,10 @@ const AlbumSchema = new Schema({
         required: [true, 'Year is required'] },
     cover: {
         type: String
+    },
+    isPublished: {
+        type: Boolean,
+        default: false
     }
 });
 

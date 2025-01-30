@@ -8,10 +8,11 @@ import tracksRouter from "./routers/tracks";
 import path from "path";
 import usersRouter from "./routers/users";
 import trackHistoryRouter from "./routers/trackHistory";
+import config from "./config";
 
 
 const app = express();
-const port = 8000;
+const port = config.port;
 
 app.use(cors());
 app.use(express.json());
@@ -25,7 +26,7 @@ app.use('/track_history', trackHistoryRouter);
 
 const run = async () => {
     mongoose.set('strictQuery', false);
-    await mongoose.connect('mongodb://localhost:27017/discography');
+    await mongoose.connect(config.db);
 
     app.listen(port, () => {
         console.log(`Server started on ${port} port!`);
