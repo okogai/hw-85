@@ -11,8 +11,7 @@ import {
   FormControl, SelectChangeEvent,
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from "../../app/hooks.ts";
-import { NavLink, useNavigate } from "react-router-dom";
-import { selectUser } from "../../store/slices/userSlice.ts";
+import { useNavigate } from "react-router-dom";
 import { selectAlbumsLoading } from '../../store/slices/albumSlice.ts';
 import { addAlbum } from '../../store/thunks/albumThunk.ts';
 import { fetchArtists } from '../../store/thunks/artistThunk.ts';
@@ -27,7 +26,6 @@ const initialState = {
 };
 
 const AlbumForm = () => {
-  const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const loading = useAppSelector(selectAlbumsLoading);
@@ -69,17 +67,6 @@ const AlbumForm = () => {
     await dispatch(addAlbum(form));
     navigate("/");
   };
-
-  if (!user) {
-    return (
-      <Box sx={{ textAlign: "center", mt: 4 }}>
-        <Typography variant="h6" color="textSecondary">
-          You need to be logged in to add an album.
-        </Typography>
-        <NavLink to="/login">Go to Login</NavLink>
-      </Box>
-    );
-  }
 
   return (
     <Box

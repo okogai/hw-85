@@ -48,7 +48,7 @@ tracksRouter.get('/', async (req, res, next) => {
 
 
 tracksRouter.post('/', auth, permit('user'), async (req, res, next) => {
-    const { title, album, duration, trackNumber } = req.body;
+    const { title, album, duration, trackNumber, youtubeLink } = req.body;
 
     const user = (req as RequestWithUser).user;
 
@@ -66,7 +66,7 @@ tracksRouter.post('/', auth, permit('user'), async (req, res, next) => {
     }
 
     try {
-        const track = new Track({ title, album, duration, trackNumber, creator: user._id });
+        const track = new Track({ title, album, duration, trackNumber, youtubeLink, creator: user._id });
         await track.save();
         res.send(track);
     } catch (e) {

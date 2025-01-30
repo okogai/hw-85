@@ -6,8 +6,7 @@ import {
   Typography,
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from "../../app/hooks.ts";
-import { NavLink, useNavigate } from "react-router-dom";
-import { selectUser } from "../../store/slices/userSlice.ts";
+import { useNavigate } from "react-router-dom";
 import { selectArtistsLoading } from '../../store/slices/artistSlice.ts';
 import { addArtist } from '../../store/thunks/artistThunk.ts';
 import FileInput from '../UI/FileInput/FileInput.tsx';
@@ -18,7 +17,6 @@ const initialState = {
 };
 
 const ArtistForm = () => {
-  const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const loading = useAppSelector(selectArtistsLoading);
@@ -55,17 +53,6 @@ const ArtistForm = () => {
     await dispatch(addArtist(form));
     navigate("/");
   };
-
-  if (!user) {
-    return (
-      <Box sx={{ textAlign: "center", mt: 4 }}>
-        <Typography variant="h6" color="textSecondary">
-          You need to be logged in to add an artist.
-        </Typography>
-        <NavLink to="/login">Go to Login</NavLink>
-      </Box>
-    );
-  }
 
   return (
     <Box

@@ -20,6 +20,15 @@ interface Track {
   album: Album;
   youtubeLink: string;
   isPublished: boolean;
+  creator: string;
+}
+
+interface TrackMutation {
+  trackNumber: number;
+  title: string;
+  duration: string;
+  album: string;
+  youtubeLink: string;
 }
 
 interface Album {
