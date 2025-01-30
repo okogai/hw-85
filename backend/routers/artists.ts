@@ -20,7 +20,7 @@ artistsRouter.get('/', async (_req, res, next) => {
 
 artistsRouter.post('/', imagesUpload.single('photo'), auth, permit('user'), async (req, res, next) => {
     const { name } = req.body;
-    const photo = req.file ? `/public/images/${req.file.filename}` : null;
+    const photo = req.file ? `public/images/${req.file.filename}` : null;
 
     const user = (req as RequestWithUser).user;
 

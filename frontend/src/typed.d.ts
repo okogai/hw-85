@@ -9,9 +9,7 @@ export interface Artist {
 
 export interface ArtistMutation {
   name: string;
-  info: string;
   photo: File | null;
-  creator: string;
 }
 
 interface Track {
@@ -32,6 +30,7 @@ interface Album {
   artist: Artist
   trackCount: number;
   isPublished: boolean;
+  creator: string;
 }
 
 export interface User {

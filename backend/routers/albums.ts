@@ -63,7 +63,7 @@ albumsRouter.get('/:id', async (req, res, next) => {
 
 albumsRouter.post('/', imagesUpload.single('cover'), auth, permit('user'), async (req, res, next) => {
     const { title, artist, year } = req.body;
-    const cover = req.file ? `/public/images/${req.file.filename}` : null;
+    const cover = req.file ? `public/images/${req.file.filename}` : null;
 
     const user = (req as RequestWithUser).user;
 

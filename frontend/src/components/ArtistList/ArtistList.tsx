@@ -2,8 +2,6 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks.ts';
 import { deleteArtist, fetchArtists, publishArtist } from '../../store/thunks/artistThunk.ts';
-import DeleteIcon from "@mui/icons-material/Delete";
-import CheckIcon from "@mui/icons-material/Check";
 import Grid from '@mui/material/Grid2';
 import {
   Container,
@@ -11,7 +9,7 @@ import {
   CardContent,
   CardMedia,
   Typography,
-  CircularProgress, IconButton,
+  CircularProgress, Button, Box,
 } from '@mui/material';
 import { selectArtists, selectArtistsLoading } from '../../store/slices/artistSlice.ts';
 import { selectUser } from '../../store/slices/userSlice.ts';
@@ -35,10 +33,8 @@ const ArtistList = () => {
   }, [dispatch]);
 
   const handleDelete = async (artistId: string) => {
-    if (user?.role === "admin") {
       await dispatch(deleteArtist(artistId));
       await dispatch(fetchArtists());
-    }
   };
 
   const handlePublish = async (artistId: string) => {
@@ -76,35 +72,30 @@ const ArtistList = () => {
                   <Typography variant="h6" color="textPrimary" align="center">
                     {artist.name}
                   </Typography>
-                  <Typography variant="body2" color="textPrimary" align="center">
-                    {artist.info}
-                  </Typography>
                 </CardContent>
               </Link>
-              {user?.role === 'admin' && (
-                <>
-                  {!artist.isPublished && (
-                    <IconButton
+
+                <Box sx={{alignSelf: 'center', marginBottom: 2,display: 'flex', gap: 2}}>
+                  {user?.role === 'admin' && !artist.isPublished  && (
+                    <Button
+                      variant="contained"
+                      color="success"
                       onClick={() => handlePublish(artist._id)}
-                      sx={{
-                        color: 'green',
-                        alignSelf: 'center'
-                      }}
+
                     >
-                      <CheckIcon />
-                    </IconButton>
+                      Publish
+                    </Button>
                   )}
-                  <IconButton
-                    onClick={() => handleDelete(artist._id)}
-                    sx={{
-                      color: 'red',
-                      alignSelf: 'center'
-                    }}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </>
-              )}
+                  {(user?.role === 'admin' || user?._id === artist.creator) && (
+                      <Button
+                        variant="contained"
+                        color="error"
+                        onClick={() => handleDelete(artist._id)}
+                      >
+                        Delete
+                      </Button>
+                  )}
+                </Box>
 
             </Card>
           </Grid>
