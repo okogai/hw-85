@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Container, Card, CardContent, Typography, CircularProgress, Button, Box } from '@mui/material';
+import { Container, Card, CardContent, Typography, CircularProgress, Button, Box, Chip } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks.ts';
@@ -70,7 +70,7 @@ const TracksList = () => {
   }
 
   return (
-    <Container sx={{ mt: 4 }} maxWidth="sm">
+    <Container sx={{ mt: 4 }} maxWidth="lg">
       {tracks.length > 0 && (
         <Typography variant="h4" gutterBottom style={{ textAlign: 'center' }}>
           {tracks[0].album.title} by {tracks[0].album.artist.name}
@@ -84,6 +84,9 @@ const TracksList = () => {
                 <Typography variant="body1" sx={{flexGrow: 1}}>
                   {track.trackNumber}. {track.title} - {track.duration} min
                 </Typography>
+                {!track.isPublished && (
+                  <Chip label="Not Published" color="error" sx={{marginRight: 20}}/>
+                )}
                 <Button
                   variant="contained"
                   color="primary"

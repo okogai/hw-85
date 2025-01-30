@@ -1,5 +1,15 @@
 import { useEffect } from 'react';
-import { Container, Card, CardContent, Typography, CardMedia, Button, CircularProgress, Box } from '@mui/material';
+import {
+  Container,
+  Card,
+  CardContent,
+  Typography,
+  CardMedia,
+  Button,
+  CircularProgress,
+  Box,
+  Chip
+} from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { Link, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks.ts';
@@ -54,14 +64,17 @@ const AlbumsList = () => {
       <Grid container spacing={3}>
         {albums.map((album) => (
           <Grid size={6} key={album._id}>
-            <Card>
+            <Card  sx={{ position: 'relative'}}>
               <CardMedia
                 component="img"
                 alt={album.title}
                 height="300"
                 image={`http://localhost:8000/${album.cover}`}
               />
-              <CardContent>
+              <CardContent sx={{display: 'flex', flexDirection: 'column'}}>
+                {!album.isPublished && (
+                  <Chip label="Not Published" color="error" sx={{alignSelf: 'end'}}/>
+                )}
                 <Typography variant="h6" sx={{mb: 2}}>{album.title}</Typography>
                 <Typography variant="body2" color="textSecondary" sx={{mb: 1}}>
                   Year: {album.year}

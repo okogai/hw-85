@@ -9,7 +9,7 @@ import {
   CardContent,
   CardMedia,
   Typography,
-  CircularProgress, Button, Box,
+  CircularProgress, Button, Box, Chip,
 } from '@mui/material';
 import { selectArtists, selectArtistsLoading } from '../../store/slices/artistSlice.ts';
 import { selectUser } from '../../store/slices/userSlice.ts';
@@ -68,7 +68,10 @@ const ArtistList = () => {
                   image={`http://localhost:8000/${artist.photo}`}
                   alt={artist.name}
                 />
-                <CardContent>
+                <CardContent sx={{display: 'flex', flexDirection: 'column'}}>
+                  {!artist.isPublished && (
+                    <Chip label="Not Published" color="error" sx={{alignSelf: 'end'}}/>
+                  )}
                   <Typography variant="h6" color="textPrimary" align="center">
                     {artist.name}
                   </Typography>
