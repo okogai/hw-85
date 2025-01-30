@@ -2,7 +2,7 @@ import express from "express";
 import Album from "../models/Album";
 import Track from "../models/Track";
 import mongoose from "mongoose";
-import auth from "../middleware/auth";
+import auth, {RequestWithUser} from "../middleware/auth";
 import permit from "../middleware/permit";
 
 const tracksRouter = express.Router();
@@ -62,6 +62,42 @@ tracksRouter.post('/', auth, permit('user'), async (req, res, next) => {
         const track = new Track({ title, album, duration, trackNumber });
         await track.save();
         res.send(track);
+    } catch (e) {
+        next(e);
+    }
+});
+
+tracksRouter.delete('/:id', auth, permit('user'), async (req, res, next) => {
+    const user = (req as RequestWithUser).user;
+
+    if (!user){
+        res.status(401).send({error: 'Token not provided!'});
+        return;
+    }
+
+    try {
+        const track = await Track.findById(req.params.id);
+
+        if (!track) {
+            res.status(404).send({ error: 'Track not found!' });
+            return;
+        }
+
+        if (user.role !== 'admin') {
+            if (!track.creator.equals(user._id)) {
+                res.status(403).send({ error: 'Access denied' });
+                return;
+            }
+
+            if (track.isPublished) {
+                res.status(400).send({ error: 'Cannot remove track. Already published' });
+                return;
+            }
+        }
+
+        await track.deleteOne({ album: track._id });
+
+        res.send({ message: 'Track deleted successfully' });
     } catch (e) {
         next(e);
     }

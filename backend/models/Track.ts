@@ -26,7 +26,12 @@ const TrackSchema = new Schema({
     isPublished: {
         type: Boolean,
         default: false
-    }
+    },
+    creator: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true
+    },
 });
 
 const Track = mongoose.model('Track', TrackSchema);

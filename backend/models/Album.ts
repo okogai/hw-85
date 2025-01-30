@@ -21,7 +21,12 @@ const AlbumSchema = new Schema({
     isPublished: {
         type: Boolean,
         default: false
-    }
+    },
+    creator: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true
+    },
 });
 
 const Album = mongoose.model('Album', AlbumSchema);

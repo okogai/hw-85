@@ -4,7 +4,7 @@ import Artist from "../models/Artist";
 import mongoose from "mongoose";
 import {imagesUpload} from "../multer";
 import Track from "../models/Track";
-import auth from "../middleware/auth";
+import auth, {RequestWithUser} from "../middleware/auth";
 import permit from "../middleware/permit";
 
 const albumsRouter = express.Router();
@@ -77,6 +77,44 @@ albumsRouter.post('/', imagesUpload.single('cover'), auth, permit('user'), async
         const album = new Album({ title, artist, year, cover });
         await album.save();
         res.send(album);
+    } catch (e) {
+        next(e);
+    }
+});
+
+albumsRouter.delete('/:id', auth, permit('user'), async (req, res, next) => {
+    const user = (req as RequestWithUser).user;
+
+    if (!user){
+        res.status(401).send({error: 'Token not provided!'});
+        return;
+    }
+
+    try {
+        const album = await Album.findById(req.params.id);
+
+        if (!album) {
+            res.status(404).send({ error: 'Album not found!' });
+            return;
+        }
+
+        if (user.role !== 'admin') {
+            if (!album.creator.equals(user._id)) {
+                res.status(403).send({ error: 'Access denied' });
+                return;
+            }
+
+            if (album.isPublished) {
+                res.status(400).send({ error: 'Cannot remove album. Already published' });
+                return;
+            }
+        }
+
+        await Track.deleteMany({ album: album._id });
+
+        await album.deleteOne();
+
+        res.send({ message: 'Album and all related tracks deleted successfully' });
     } catch (e) {
         next(e);
     }
