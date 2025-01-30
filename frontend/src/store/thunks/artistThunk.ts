@@ -24,8 +24,6 @@ export const addArtist = createAsyncThunk<Artist, ArtistMutation, { rejectValue:
   async (data: ArtistMutation, { rejectWithValue }) => {
   const formData = new FormData();
   formData.append("name", data.name);
-  formData.append("info", data.info);
-  formData.append("creator", data.creator);
   if (data.photo) {
     formData.append("photo", data.photo);
   }

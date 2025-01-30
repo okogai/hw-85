@@ -81,7 +81,7 @@ const ArtistList = () => {
                       variant="contained"
                       color="success"
                       onClick={() => handlePublish(artist._id)}
-
+                      disabled={loading}
                     >
                       Publish
                     </Button>
@@ -91,6 +91,7 @@ const ArtistList = () => {
                         variant="contained"
                         color="error"
                         onClick={() => handleDelete(artist._id)}
+                        disabled={loading}
                       >
                         Delete
                       </Button>

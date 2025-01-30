@@ -33,6 +33,13 @@ interface Album {
   creator: string;
 }
 
+export interface AlbumMutation {
+  title: string;
+  year: string;
+  cover: File | null;
+  artist: string;
+}
+
 export interface User {
   username: string;
   _id: string;

@@ -1,20 +1,40 @@
 import { useEffect } from 'react';
-import { Container, Card, CardContent, Typography, CardMedia, Button, CircularProgress } from '@mui/material';
+import { Container, Card, CardContent, Typography, CardMedia, Button, CircularProgress, Box } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { Link, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks.ts';
-import { fetchAlbums } from '../../store/thunks/albumThunk.ts';
+import { deleteAlbum, fetchAlbums, publishAlbum } from '../../store/thunks/albumThunk.ts';
+import { selectUser } from '../../store/slices/userSlice.ts';
+import { selectAlbums, selectAlbumsLoading } from '../../store/slices/albumSlice.ts';
 
 const AlbumsList = () => {
   const { id } = useParams();
   const dispatch = useAppDispatch();
-  const { albums, loading } = useAppSelector((state) => state.albums);
+  const albums = useAppSelector(selectAlbums);
+  const loading = useAppSelector(selectAlbumsLoading);
+  const user = useAppSelector(selectUser);
 
   useEffect(() => {
     if (id) {
       dispatch(fetchAlbums(id));
     }
   }, [dispatch, id]);
+
+  const handleDelete = async (artistId: string) => {
+    await dispatch(deleteAlbum(artistId));
+    if (id) {
+      await dispatch(fetchAlbums(id));
+    }
+  };
+
+  const handlePublish = async (artistId: string) => {
+    if (user?.role === "admin") {
+      await dispatch(publishAlbum(artistId));
+      if (id) {
+        await dispatch(fetchAlbums(id));
+      }
+    }
+  };
 
   if (loading) {
     return (
@@ -49,11 +69,36 @@ const AlbumsList = () => {
                 <Typography variant="body2" color="textSecondary" sx={{ mb: 2 }}>
                   Track Count: {album.trackCount}
                 </Typography>
-                <Link to={`/album/${album._id}`}>
-                  <Button variant="contained" color="primary">
-                    View Tracks
-                  </Button>
-                </Link>
+                <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
+                  <Link to={`/album/${album._id}`}>
+                    <Button variant="contained" color="primary">
+                      View Tracks
+                    </Button>
+                  </Link>
+                  <Box sx={{alignSelf: 'center', marginBottom: 2,display: 'flex', gap: 2}}>
+                    {user?.role === 'admin' && !album.isPublished  && (
+                      <Button
+                        variant="contained"
+                        color="success"
+                        onClick={() => handlePublish(album._id)}
+                        disabled={loading}
+                      >
+                        Publish
+                      </Button>
+                    )}
+                    {(user?.role === 'admin' || user?._id === album.creator) && (
+                      <Button
+                        variant="contained"
+                        color="error"
+                        onClick={() => handleDelete(album._id)}
+                        disabled={loading}
+                      >
+                        Delete
+                      </Button>
+                    )}
+                  </Box>
+                </Box>
+
               </CardContent>
             </Card>
           </Grid>

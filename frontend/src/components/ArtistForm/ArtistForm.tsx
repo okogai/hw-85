@@ -80,7 +80,7 @@ const ArtistForm = () => {
       }}
       onSubmit={handleSubmit}
     >
-      <Typography variant="h4" gutterBottom>
+      <Typography variant="h5" gutterBottom textAlign='center' textTransform='uppercase'>
         Add New Artist
       </Typography>
       <TextField
@@ -100,6 +100,7 @@ const ArtistForm = () => {
         type="submit"
         variant="contained"
         color="primary"
+        sx={{alignSelf: 'center'}}
         disabled={loading}
       >
         {loading ? <CircularProgress size={24} /> : 'Add Artist'}
