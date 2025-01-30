@@ -32,6 +32,27 @@ const UserMenu: React.FC<Props> = ({user}) => {
       <Button
         color="inherit"
         component={NavLink}
+        to='/add-artist'
+      >
+        Add artist
+      </Button>
+      <Button
+        color="inherit"
+        component={NavLink}
+        to='/add-album'
+      >
+        Add album
+      </Button>
+      <Button
+        color="inherit"
+        component={NavLink}
+        to='/add-track'
+      >
+        Add track
+      </Button>
+      <Button
+        color="inherit"
+        component={NavLink}
         to='/track_history'
       >
        Track history

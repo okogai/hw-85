@@ -26,6 +26,7 @@ export interface User {
   username: string;
   _id: string;
   token: string;
+  role: string;
 }
 
 export interface RegisterMutation {
