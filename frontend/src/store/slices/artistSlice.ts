@@ -1,7 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addArtist, deleteArtist, fetchArtists, publishArtist } from '../thunks/artistThunk.ts';
-import { Artist, GlobalError } from '../../typed';
-import { RootState } from '../../app/store.ts';
+import {
+  addArtist,
+  deleteArtist,
+  fetchArtists,
+  publishArtist,
+} from "../thunks/artistThunk.ts";
+import { Artist, GlobalError } from "../../typed";
+import { RootState } from "../../app/store.ts";
 
 interface ArtistState {
   artists: Artist[];
@@ -12,15 +17,15 @@ interface ArtistState {
 const initialState: ArtistState = {
   artists: [],
   loading: false,
-  error: null
+  error: null,
 };
 
-export const selectArtists= (state: RootState) => state.artists.artists;
-export const selectArtistsLoading= (state: RootState) => state.artists.loading;
-export const selectArtistsError= (state: RootState) => state.artists.error;
+export const selectArtists = (state: RootState) => state.artists.artists;
+export const selectArtistsLoading = (state: RootState) => state.artists.loading;
+export const selectArtistsError = (state: RootState) => state.artists.error;
 
 const artistSlice = createSlice({
-  name: 'artists',
+  name: "artists",
   initialState,
   reducers: {},
   extraReducers: (builder) => {

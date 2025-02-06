@@ -1,15 +1,21 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { Artist, ArtistMutation, GlobalError } from '../../typed';
-import axiosAPI from '../../utils/axiosAPI.ts';
-import { isAxiosError } from 'axios';
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { Artist, ArtistMutation, GlobalError } from "../../typed";
+import axiosAPI from "../../utils/axiosAPI.ts";
+import { isAxiosError } from "axios";
 
-export const fetchArtists = createAsyncThunk<Artist[]>('artists/fetchArtists', async () => {
-  const response = await axiosAPI.get('/artists');
-  return response.data;
-});
+export const fetchArtists = createAsyncThunk<Artist[]>(
+  "artists/fetchArtists",
+  async () => {
+    const response = await axiosAPI.get("/artists");
+    return response.data;
+  },
+);
 
-export const deleteArtist = createAsyncThunk<void, string, { rejectValue: GlobalError }>('artists/deleteArtist',
-  async (id: string, { rejectWithValue }) => {
+export const deleteArtist = createAsyncThunk<
+  void,
+  string,
+  { rejectValue: GlobalError }
+>("artists/deleteArtist", async (id: string, { rejectWithValue }) => {
   try {
     await axiosAPI.delete(`artists/${id}`);
   } catch (e) {
@@ -20,8 +26,11 @@ export const deleteArtist = createAsyncThunk<void, string, { rejectValue: Global
   }
 });
 
-export const addArtist = createAsyncThunk<Artist, ArtistMutation, { rejectValue: GlobalError }>('artists/addArtist',
-  async (data: ArtistMutation, { rejectWithValue }) => {
+export const addArtist = createAsyncThunk<
+  Artist,
+  ArtistMutation,
+  { rejectValue: GlobalError }
+>("artists/addArtist", async (data: ArtistMutation, { rejectWithValue }) => {
   const formData = new FormData();
   formData.append("name", data.name);
   if (data.photo) {
@@ -40,7 +49,9 @@ export const addArtist = createAsyncThunk<Artist, ArtistMutation, { rejectValue:
   }
 });
 
-export const publishArtist = createAsyncThunk<void, string>('artists/publishArtist',
+export const publishArtist = createAsyncThunk<void, string>(
+  "artists/publishArtist",
   async (id: string) => {
     await axiosAPI.patch(`artists/${id}/togglePublished`);
-  });
+  },
+);

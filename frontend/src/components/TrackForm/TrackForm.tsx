@@ -8,24 +8,25 @@ import {
   MenuItem,
   Select,
   InputLabel,
-  FormControl, SelectChangeEvent,
-} from '@mui/material';
+  FormControl,
+  SelectChangeEvent,
+} from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../app/hooks.ts";
-import { fetchArtists } from '../../store/thunks/artistThunk.ts';
+import { fetchArtists } from "../../store/thunks/artistThunk.ts";
 import { useNavigate } from "react-router-dom";
-import { selectTracksLoading } from '../../store/slices/trackSlice.ts';
-import { selectArtists } from '../../store/slices/artistSlice.ts';
-import { selectAlbums } from '../../store/slices/albumSlice.ts';
-import { TrackMutation } from '../../typed';
-import { fetchAlbums } from '../../store/thunks/albumThunk.ts';
-import { addTrack } from '../../store/thunks/trackThunk.ts';
+import { selectTracksLoading } from "../../store/slices/trackSlice.ts";
+import { selectArtists } from "../../store/slices/artistSlice.ts";
+import { selectAlbums } from "../../store/slices/albumSlice.ts";
+import { TrackMutation } from "../../typed";
+import { fetchAlbums } from "../../store/thunks/albumThunk.ts";
+import { addTrack } from "../../store/thunks/trackThunk.ts";
 
 const initialState = {
   trackNumber: 0,
-  title: '',
-  duration: '',
-  album: '',
-  youtubeLink: ''
+  title: "",
+  duration: "",
+  album: "",
+  youtubeLink: "",
 };
 
 const TrackForm = () => {
@@ -49,7 +50,7 @@ const TrackForm = () => {
   };
 
   const handleChange = (
-    e: SelectChangeEvent | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: SelectChangeEvent | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setForm((prevForm) => ({ ...prevForm, [name]: value }));
@@ -80,7 +81,12 @@ const TrackForm = () => {
       }}
       onSubmit={handleSubmit}
     >
-      <Typography variant="h5" gutterBottom textAlign='center' textTransform='uppercase'>
+      <Typography
+        variant="h5"
+        gutterBottom
+        textAlign="center"
+        textTransform="uppercase"
+      >
         Add New Track
       </Typography>
 
@@ -150,10 +156,10 @@ const TrackForm = () => {
         type="submit"
         variant="contained"
         color="primary"
-        sx={{ alignSelf: 'center' }}
+        sx={{ alignSelf: "center" }}
         disabled={loading}
       >
-        {loading ? <CircularProgress size={24} /> : 'Add Track'}
+        {loading ? <CircularProgress size={24} /> : "Add Track"}
       </Button>
     </Box>
   );

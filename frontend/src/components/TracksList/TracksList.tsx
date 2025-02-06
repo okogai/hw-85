@@ -1,11 +1,24 @@
-import { useEffect } from 'react';
-import { Container, Card, CardContent, Typography, CircularProgress, Button, Box, Chip } from '@mui/material';
-import Grid from '@mui/material/Grid2';
-import { useParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../app/hooks.ts';
-import { deleteTrack, fetchTracks, publishTrack } from '../../store/thunks/trackThunk.ts';
-import { addTrackToHistory } from '../../store/thunks/trackHistoryThunk.ts';
-import { selectUser } from '../../store/slices/userSlice.ts';
+import { useEffect } from "react";
+import {
+  Container,
+  Card,
+  CardContent,
+  Typography,
+  CircularProgress,
+  Button,
+  Box,
+  Chip,
+} from "@mui/material";
+import Grid from "@mui/material/Grid2";
+import { useParams } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../app/hooks.ts";
+import {
+  deleteTrack,
+  fetchTracks,
+  publishTrack,
+} from "../../store/thunks/trackThunk.ts";
+import { addTrackToHistory } from "../../store/thunks/trackHistoryThunk.ts";
+import { selectUser } from "../../store/slices/userSlice.ts";
 
 const TracksList = () => {
   const { id } = useParams();
@@ -21,7 +34,14 @@ const TracksList = () => {
 
   if (loading) {
     return (
-      <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <Container
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
         <CircularProgress />
       </Container>
     );
@@ -33,8 +53,8 @@ const TracksList = () => {
 
     window.open(
       youtubeLink,
-      'YouTubePopup',
-      `width=${width},height=${height},resizable=yes,scrollbars=yes`
+      "YouTubePopup",
+      `width=${width},height=${height},resizable=yes,scrollbars=yes`,
     );
   };
 
@@ -63,7 +83,14 @@ const TracksList = () => {
 
   if (loading) {
     return (
-      <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <Container
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
         <CircularProgress />
       </Container>
     );
@@ -72,7 +99,7 @@ const TracksList = () => {
   return (
     <Container sx={{ mt: 4 }} maxWidth="lg">
       {tracks.length > 0 && (
-        <Typography variant="h4" gutterBottom style={{ textAlign: 'center' }}>
+        <Typography variant="h4" gutterBottom style={{ textAlign: "center" }}>
           {tracks[0].album.title} by {tracks[0].album.artist.name}
         </Typography>
       )}
@@ -80,23 +107,33 @@ const TracksList = () => {
         {tracks.map((track) => (
           <Grid size={12} key={track._id}>
             <Card>
-              <CardContent sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                <Typography variant="body1" sx={{flexGrow: 1}}>
+              <CardContent
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <Typography variant="body1" sx={{ flexGrow: 1 }}>
                   {track.trackNumber}. {track.title} - {track.duration} min
                 </Typography>
                 {!track.isPublished && (
-                  <Chip label="Not Published" color="error" sx={{marginRight: 20}}/>
+                  <Chip
+                    label="Not Published"
+                    color="error"
+                    sx={{ marginRight: 20 }}
+                  />
                 )}
                 <Button
                   variant="contained"
                   color="primary"
                   onClick={() => handlePlay(track._id, track.youtubeLink)}
-                  sx={{marginRight: 2}}
+                  sx={{ marginRight: 2 }}
                 >
                   Play
                 </Button>
-                <Box sx={{alignSelf: 'center',display: 'flex', gap: 2}}>
-                  {user?.role === 'admin' && !track.isPublished  && (
+                <Box sx={{ alignSelf: "center", display: "flex", gap: 2 }}>
+                  {user?.role === "admin" && !track.isPublished && (
                     <Button
                       variant="contained"
                       color="success"
@@ -106,7 +143,7 @@ const TracksList = () => {
                       Publish
                     </Button>
                   )}
-                  {(user?.role === 'admin' || user?._id === track.creator) && (
+                  {(user?.role === "admin" || user?._id === track.creator) && (
                     <Button
                       variant="contained"
                       color="error"

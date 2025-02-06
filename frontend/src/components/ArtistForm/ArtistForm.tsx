@@ -1,15 +1,16 @@
 import React, { ChangeEvent, useState } from "react";
 import {
   Box,
-  Button, CircularProgress,
+  Button,
+  CircularProgress,
   TextField,
   Typography,
-} from '@mui/material';
+} from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../app/hooks.ts";
 import { useNavigate } from "react-router-dom";
-import { selectArtistsLoading } from '../../store/slices/artistSlice.ts';
-import { addArtist } from '../../store/thunks/artistThunk.ts';
-import FileInput from '../UI/FileInput/FileInput.tsx';
+import { selectArtistsLoading } from "../../store/slices/artistSlice.ts";
+import { addArtist } from "../../store/thunks/artistThunk.ts";
+import FileInput from "../UI/FileInput/FileInput.tsx";
 
 const initialState = {
   name: "",
@@ -36,7 +37,7 @@ const ArtistForm = () => {
   };
 
   const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setForm((prevForm) => ({ ...prevForm, [name]: value }));
@@ -67,7 +68,12 @@ const ArtistForm = () => {
       }}
       onSubmit={handleSubmit}
     >
-      <Typography variant="h5" gutterBottom textAlign='center' textTransform='uppercase'>
+      <Typography
+        variant="h5"
+        gutterBottom
+        textAlign="center"
+        textTransform="uppercase"
+      >
         Add New Artist
       </Typography>
       <TextField
@@ -87,11 +93,10 @@ const ArtistForm = () => {
         type="submit"
         variant="contained"
         color="primary"
-        sx={{alignSelf: 'center'}}
+        sx={{ alignSelf: "center" }}
         disabled={loading}
       >
-        {loading ? <CircularProgress size={24} /> : 'Add Artist'}
-
+        {loading ? <CircularProgress size={24} /> : "Add Artist"}
       </Button>
     </Box>
   );

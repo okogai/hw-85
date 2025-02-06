@@ -36,7 +36,7 @@ interface Album {
   title: string;
   year: number;
   cover: string;
-  artist: Artist
+  artist: Artist;
   trackCount: number;
   isPublished: boolean;
   creator: string;
@@ -54,6 +54,9 @@ export interface User {
   _id: string;
   token: string;
   role: string;
+  displayName: string;
+  googleID?: string;
+  avatar: string;
 }
 
 export interface RegisterMutation {
@@ -71,8 +74,8 @@ export interface ValidationError {
     [key: string]: {
       name: string;
       message: string;
-    }
-  },
+    };
+  };
   message: string;
   name: string;
   _message: string;
@@ -95,8 +98,8 @@ export interface TrackHistory {
     album: {
       artist: {
         name: string;
-      }
-    }
+      };
+    };
   };
   datetime: string;
 }

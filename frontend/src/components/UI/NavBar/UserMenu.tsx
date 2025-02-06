@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
-import { Button, Menu, MenuItem } from '@mui/material';
-import { User } from '../../../typed';
-import { useAppDispatch } from '../../../app/hooks.ts';
-import { unsetUser } from '../../../store/slices/userSlice.ts';
-import { logout } from '../../../store/thunks/userThunk.ts';
-import { NavLink } from 'react-router-dom';
+import React, { useState } from "react";
+import { Avatar, Button, Divider, Menu, MenuItem } from "@mui/material";
+import { User } from "../../../typed";
+import { useAppDispatch } from "../../../app/hooks.ts";
+import { unsetUser } from "../../../store/slices/userSlice.ts";
+import { logout } from "../../../store/thunks/userThunk.ts";
+import { NavLink } from "react-router-dom";
+import Grid from "@mui/material/Grid2";
 
 interface Props {
   user: User;
 }
 
-const UserMenu: React.FC<Props> = ({user}) => {
+const UserMenu: React.FC<Props> = ({ user }) => {
   const dispatch = useAppDispatch();
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
@@ -28,40 +29,61 @@ const UserMenu: React.FC<Props> = ({user}) => {
   };
 
   return (
-    <>
-      <Button
-        color="inherit"
-        component={NavLink}
-        to='/add-artist'
-      >
+    <Grid display="flex" alignItems="center">
+      <Button color="inherit" component={NavLink} to="/add-artist">
         Add artist
       </Button>
-      <Button
-        color="inherit"
-        component={NavLink}
-        to='/add-album'
-      >
+      <Divider
+        orientation="vertical"
+        flexItem
+        sx={{
+          borderColor: "white",
+          height: "2rem",
+          alignSelf: "center",
+          marginX: 1,
+        }}
+      />
+      <Button color="inherit" component={NavLink} to="/add-album">
         Add album
       </Button>
-      <Button
-        color="inherit"
-        component={NavLink}
-        to='/add-track'
-      >
+      <Divider
+        orientation="vertical"
+        flexItem
+        sx={{
+          borderColor: "white",
+          height: "2rem",
+          alignSelf: "center",
+          marginX: 1,
+        }}
+      />
+      <Button color="inherit" component={NavLink} to="/add-track">
         Add track
       </Button>
-      <Button
-        color="inherit"
-        component={NavLink}
-        to='/track_history'
-      >
-       Track history
+      <Divider
+        orientation="vertical"
+        flexItem
+        sx={{
+          borderColor: "white",
+          height: "2rem",
+          alignSelf: "center",
+          marginX: 1,
+        }}
+      />
+      <Button color="inherit" component={NavLink} to="/track_history">
+        Track history
       </Button>
-      <Button
-        onClick={handleClick}
-        color="inherit"
-      >
-        Hello, {user.username}
+      <Divider
+        orientation="vertical"
+        flexItem
+        sx={{
+          borderColor: "white",
+          height: "2rem",
+          alignSelf: "center",
+          marginX: 1,
+        }}
+      />
+      <Button onClick={handleClick} color="inherit">
+        Hello, {user.displayName ? user.displayName : user.username}
       </Button>
       <Menu
         anchorEl={anchorEl}
@@ -69,11 +91,10 @@ const UserMenu: React.FC<Props> = ({user}) => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem>Profile</MenuItem>
-        <MenuItem>My account</MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
-    </>
+      <Avatar sx={{ ml: 1 }} src={user.avatar} alt={user.displayName} />
+    </Grid>
   );
 };
 

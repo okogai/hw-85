@@ -1,7 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { Album, GlobalError } from '../../typed';
-import { addAlbum, deleteAlbum, fetchAlbums, publishAlbum } from '../thunks/albumThunk.ts';
-import { RootState } from '../../app/store.ts';
+import { createSlice } from "@reduxjs/toolkit";
+import { Album, GlobalError } from "../../typed";
+import {
+  addAlbum,
+  deleteAlbum,
+  fetchAlbums,
+  publishAlbum,
+} from "../thunks/albumThunk.ts";
+import { RootState } from "../../app/store.ts";
 
 interface AlbumState {
   albums: Album[];
@@ -14,15 +19,15 @@ const initialState: AlbumState = {
   albums: [],
   currentAlbum: null,
   loading: false,
-  error: null
+  error: null,
 };
 
-export const selectAlbums= (state: RootState) => state.albums.albums;
-export const selectAlbumsLoading= (state: RootState) => state.albums.loading;
-export const selectAlbumsError= (state: RootState) => state.albums.error;
+export const selectAlbums = (state: RootState) => state.albums.albums;
+export const selectAlbumsLoading = (state: RootState) => state.albums.loading;
+export const selectAlbumsError = (state: RootState) => state.albums.error;
 
 const albumSlice = createSlice({
-  name: 'albums',
+  name: "albums",
   initialState,
   reducers: {
     setCurrentAlbum: (state, action) => {

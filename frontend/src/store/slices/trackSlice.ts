@@ -1,7 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { GlobalError, Track } from '../../typed';
-import { addTrack, deleteTrack, fetchTracks, publishTrack } from '../thunks/trackThunk.ts';
-import { RootState } from '../../app/store.ts';
+import { createSlice } from "@reduxjs/toolkit";
+import { GlobalError, Track } from "../../typed";
+import {
+  addTrack,
+  deleteTrack,
+  fetchTracks,
+  publishTrack,
+} from "../thunks/trackThunk.ts";
+import { RootState } from "../../app/store.ts";
 
 interface TrackState {
   tracks: Track[];
@@ -12,21 +17,21 @@ interface TrackState {
 const initialState: TrackState = {
   tracks: [],
   loading: false,
-  error: null
+  error: null,
 };
 
-export const selectTracks= (state: RootState) => state.tracks.tracks;
-export const selectTracksLoading= (state: RootState) => state.tracks.loading;
+export const selectTracks = (state: RootState) => state.tracks.tracks;
+export const selectTracksLoading = (state: RootState) => state.tracks.loading;
 
 const trackSlice = createSlice({
-  name: 'tracks',
+  name: "tracks",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchTracks.pending, (state) => {
-      state.loading = true;
-       })
+        state.loading = true;
+      })
       .addCase(fetchTracks.fulfilled, (state, action) => {
         state.tracks = action.payload;
         state.loading = false;

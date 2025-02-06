@@ -8,15 +8,16 @@ import {
   MenuItem,
   Select,
   InputLabel,
-  FormControl, SelectChangeEvent,
-} from '@mui/material';
+  FormControl,
+  SelectChangeEvent,
+} from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../app/hooks.ts";
 import { useNavigate } from "react-router-dom";
-import { selectAlbumsLoading } from '../../store/slices/albumSlice.ts';
-import { addAlbum } from '../../store/thunks/albumThunk.ts';
-import { fetchArtists } from '../../store/thunks/artistThunk.ts';
-import FileInput from '../UI/FileInput/FileInput.tsx';
-import { selectArtists } from '../../store/slices/artistSlice.ts';
+import { selectAlbumsLoading } from "../../store/slices/albumSlice.ts";
+import { addAlbum } from "../../store/thunks/albumThunk.ts";
+import { fetchArtists } from "../../store/thunks/artistThunk.ts";
+import FileInput from "../UI/FileInput/FileInput.tsx";
+import { selectArtists } from "../../store/slices/artistSlice.ts";
 
 const initialState = {
   title: "",
@@ -81,7 +82,12 @@ const AlbumForm = () => {
       }}
       onSubmit={handleSubmit}
     >
-      <Typography variant="h5" gutterBottom textAlign='center' textTransform='uppercase'>
+      <Typography
+        variant="h5"
+        gutterBottom
+        textAlign="center"
+        textTransform="uppercase"
+      >
         Add New Album
       </Typography>
       <TextField
@@ -125,10 +131,10 @@ const AlbumForm = () => {
         type="submit"
         variant="contained"
         color="primary"
-        sx={{ alignSelf: 'center' }}
+        sx={{ alignSelf: "center" }}
         disabled={loading}
       >
-        {loading ? <CircularProgress size={24} /> : 'Add Album'}
+        {loading ? <CircularProgress size={24} /> : "Add Album"}
       </Button>
     </Box>
   );

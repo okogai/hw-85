@@ -1,12 +1,18 @@
-import { useAppDispatch, useAppSelector } from '../../app/hooks.ts';
-import { useEffect } from 'react';
-import { getTrackToHistory } from '../../store/thunks/trackHistoryThunk.ts';
+import { useAppDispatch, useAppSelector } from "../../app/hooks.ts";
+import { useEffect } from "react";
+import { getTrackToHistory } from "../../store/thunks/trackHistoryThunk.ts";
 import {
   selectGetTrackHistoryLoading,
-  selectTrackHistory
-} from '../../store/slices/trackHistorySlice.ts';
-import { CircularProgress, Container, List, ListItem, ListItemText, Typography } from '@mui/material';
-
+  selectTrackHistory,
+} from "../../store/slices/trackHistorySlice.ts";
+import {
+  CircularProgress,
+  Container,
+  List,
+  ListItem,
+  ListItemText,
+  Typography,
+} from "@mui/material";
 
 const TrackHistory = () => {
   const dispatch = useAppDispatch();
@@ -19,7 +25,14 @@ const TrackHistory = () => {
 
   if (loading) {
     return (
-      <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <Container
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
         <CircularProgress />
       </Container>
     );
@@ -27,26 +40,35 @@ const TrackHistory = () => {
 
   return (
     <Container maxWidth="sm">
-      <Typography variant="h4" sx={{
-        textTransform: 'uppercase',
-        textAlign: 'center',
-        fontWeight: 300,
-        mt: 3,
-        mb: 3
-      }}>
+      <Typography
+        variant="h4"
+        sx={{
+          textTransform: "uppercase",
+          textAlign: "center",
+          fontWeight: 300,
+          mt: 3,
+          mb: 3,
+        }}
+      >
         Track history
       </Typography>
 
-      <List>
-        {trackHistory.map((history) => (
-          <ListItem key={history._id} sx={{ borderBottom: '1px solid #ddd' }}>
-            <ListItemText
-              primary={`${history.track.album.artist.name} - ${history.track.title} : ${history.track.duration}`}
-              secondary={`Listened on: ${new Date(history.datetime).toLocaleString()}`}
-            />
-          </ListItem>
-        ))}
-      </List>
+      {trackHistory.length === 0 ? (
+        <Typography variant="h5" textAlign="center">
+          You haven't listened to any song yet
+        </Typography>
+      ) : (
+        <List>
+          {trackHistory.map((history) => (
+            <ListItem key={history._id} sx={{ borderBottom: "1px solid #ddd" }}>
+              <ListItemText
+                primary={`${history.track.album.artist.name} - ${history.track.title} : ${history.track.duration}`}
+                secondary={`Listened on: ${new Date(history.datetime).toLocaleString()}`}
+              />
+            </ListItem>
+          ))}
+        </List>
+      )}
     </Container>
   );
 };

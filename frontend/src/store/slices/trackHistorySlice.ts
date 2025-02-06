@@ -1,7 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { addTrackToHistory, getTrackToHistory } from '../thunks/trackHistoryThunk.ts';
-import { TrackHistory } from '../../typed';
-import { RootState } from '../../app/store.ts';
+import { createSlice } from "@reduxjs/toolkit";
+import {
+  addTrackToHistory,
+  getTrackToHistory,
+} from "../thunks/trackHistoryThunk.ts";
+import { TrackHistory } from "../../typed";
+import { RootState } from "../../app/store.ts";
 
 interface TrackState {
   tracksHistory: TrackHistory[];
@@ -15,12 +18,15 @@ const initialState: TrackState = {
   getTrackHistoryLoading: false,
 };
 
-export const selectTrackHistory = (state: RootState) => state.trackHistory.tracksHistory;
-export const selectAddTrackHistoryLoading = (state: RootState) => state.trackHistory.addTrackHistoryLoading;
-export const selectGetTrackHistoryLoading = (state: RootState) => state.trackHistory.getTrackHistoryLoading;
+export const selectTrackHistory = (state: RootState) =>
+  state.trackHistory.tracksHistory;
+export const selectAddTrackHistoryLoading = (state: RootState) =>
+  state.trackHistory.addTrackHistoryLoading;
+export const selectGetTrackHistoryLoading = (state: RootState) =>
+  state.trackHistory.getTrackHistoryLoading;
 
 const trackHistorySlice = createSlice({
-  name: 'trackHistory',
+  name: "trackHistory",
   initialState,
   reducers: {},
   extraReducers: (builder) => {

@@ -1,10 +1,10 @@
-import { AppBar, Box, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, Toolbar, Typography } from "@mui/material";
 import { NavLink } from "react-router-dom";
-import { useAppSelector } from '../../../app/hooks.ts';
-import { selectUser } from '../../../store/slices/userSlice.ts';
-import UserMenu from './UserMenu.tsx';
-import AnonymousMenu from './AnonymousMenu.tsx';
-import Grid from '@mui/material/Grid2';
+import { useAppSelector } from "../../../app/hooks.ts";
+import { selectUser } from "../../../store/slices/userSlice.ts";
+import UserMenu from "./UserMenu.tsx";
+import AnonymousMenu from "./AnonymousMenu.tsx";
+import Grid from "@mui/material/Grid2";
 
 const NavBar = () => {
   const user = useAppSelector(selectUser);
@@ -22,13 +22,7 @@ const NavBar = () => {
           >
             Home
           </Typography>
-          <Grid>
-            {user ? (
-              <UserMenu user={user}/>
-            ) : (
-              <AnonymousMenu/>
-            )}
-          </Grid>
+          <Grid>{user ? <UserMenu user={user} /> : <AnonymousMenu />}</Grid>
         </Toolbar>
       </AppBar>
     </Box>

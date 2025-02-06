@@ -1,17 +1,30 @@
-import React, { useState } from 'react';
-import { RegisterMutation } from '../../typed';
-import { Alert, Avatar, Box, Button, CircularProgress, Container, TextField, Typography } from '@mui/material';
-import Grid from '@mui/material/Grid2';
-import Person2Icon from '@mui/icons-material/Person2';
-import { useAppDispatch, useAppSelector } from '../../app/hooks.ts';
-import { useNavigate } from 'react-router-dom';
-import { selectLoginError, selectLoginLoading } from '../../store/slices/userSlice.ts';
-import { login } from '../../store/thunks/userThunk.ts';
+import React, { useState } from "react";
+import { RegisterMutation } from "../../typed";
+import {
+  Alert,
+  Avatar,
+  Box,
+  Button,
+  CircularProgress,
+  Container,
+  TextField,
+  Typography,
+} from "@mui/material";
+import Grid from "@mui/material/Grid2";
+import Person2Icon from "@mui/icons-material/Person2";
+import { useAppDispatch, useAppSelector } from "../../app/hooks.ts";
+import { useNavigate } from "react-router-dom";
+import {
+  selectLoginError,
+  selectLoginLoading,
+} from "../../store/slices/userSlice.ts";
+import { googleLogin, login } from "../../store/thunks/userThunk.ts";
+import { GoogleLogin } from "@react-oauth/google";
 
 const initialState = {
-  username: '',
-  password: '',
-}
+  username: "",
+  password: "",
+};
 
 const RegisterPage = () => {
   const dispatch = useAppDispatch();
@@ -21,14 +34,19 @@ const RegisterPage = () => {
   const [form, setForm] = useState<RegisterMutation>(initialState);
 
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {name, value} = e.target;
-    setForm(prevState => ({...prevState, [name]: value}));
+    const { name, value } = e.target;
+    setForm((prevState) => ({ ...prevState, [name]: value }));
   };
 
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
     await dispatch(login(form)).unwrap();
-    navigate('/');
+    navigate("/");
+  };
+
+  const googleLoginHandler = async (credential: string) => {
+    await dispatch(googleLogin(credential)).unwrap();
+    navigate("/");
   };
 
   return (
@@ -36,12 +54,12 @@ const RegisterPage = () => {
       <Box
         sx={{
           marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <Person2Icon />
         </Avatar>
         <Typography component="h1" variant="h5">
@@ -49,13 +67,30 @@ const RegisterPage = () => {
         </Typography>
 
         {loginError && (
-          <Alert severity={"error"} sx={{mt: 3, width: '100%'}}>
+          <Alert severity={"error"} sx={{ mt: 3, width: "100%" }}>
             {loginError.error}
           </Alert>
         )}
 
-        <Box component="form" noValidate onSubmit={submitHandler} sx={{ mt: 3 }}>
-          <Grid container direction={'column'} size={12} spacing={2}>
+        <Box
+          component="form"
+          noValidate
+          onSubmit={submitHandler}
+          sx={{ mt: 3 }}
+        >
+          <Grid container direction={"column"} size={12} spacing={2}>
+            <Grid size={12}>
+              <GoogleLogin
+                onSuccess={(credentialResponse) => {
+                  if (credentialResponse.credential) {
+                    void googleLoginHandler(credentialResponse.credential);
+                  }
+                }}
+                onError={() => {
+                  console.log("Login Failed");
+                }}
+              />
+            </Grid>
             <Grid size={12}>
               <TextField
                 required
@@ -86,7 +121,11 @@ const RegisterPage = () => {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            {loginLoading ? <CircularProgress size={24} color="inherit" /> : 'Sign in'}
+            {loginLoading ? (
+              <CircularProgress size={24} color="inherit" />
+            ) : (
+              "Sign in"
+            )}
           </Button>
         </Box>
       </Box>
