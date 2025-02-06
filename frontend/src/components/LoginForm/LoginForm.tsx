@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { RegisterMutation } from "../../typed";
+import { LoginMutation } from '../../typed';
 import {
   Alert,
   Avatar,
@@ -7,13 +7,14 @@ import {
   Button,
   CircularProgress,
   Container,
+  Link,
   TextField,
   Typography,
 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import Person2Icon from "@mui/icons-material/Person2";
 import { useAppDispatch, useAppSelector } from "../../app/hooks.ts";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from 'react-router-dom';
 import {
   selectLoginError,
   selectLoginLoading,
@@ -31,7 +32,7 @@ const RegisterPage = () => {
   const navigate = useNavigate();
   const loginError = useAppSelector(selectLoginError);
   const loginLoading = useAppSelector(selectLoginLoading);
-  const [form, setForm] = useState<RegisterMutation>(initialState);
+  const [form, setForm] = useState<LoginMutation>(initialState);
 
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -127,6 +128,13 @@ const RegisterPage = () => {
               "Sign in"
             )}
           </Button>
+          <Grid container justifyContent="center">
+            <Grid>
+              <Link variant="body2" component={NavLink} to='/register'>
+                Don't have an account? Sign Up
+              </Link>
+            </Grid>
+          </Grid>
         </Box>
       </Box>
     </Container>

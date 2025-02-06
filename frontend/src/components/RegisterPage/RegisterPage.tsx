@@ -5,14 +5,14 @@ import {
   Box,
   Button,
   CircularProgress,
-  Container,
+  Container, Link,
   TextField,
   Typography,
-} from "@mui/material";
+} from '@mui/material';
 import Grid from "@mui/material/Grid2";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { useAppDispatch, useAppSelector } from "../../app/hooks.ts";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from 'react-router-dom';
 import {
   selectRegisterError,
   selectRegisterLoading,
@@ -152,6 +152,13 @@ const RegisterPage = () => {
               "Sign Up"
             )}
           </Button>
+          <Grid container justifyContent="center">
+            <Grid>
+              <Link variant="body2" component={NavLink} to='/login'>
+                Already have an account? Sign in
+              </Link>
+            </Grid>
+          </Grid>
         </Box>
       </Box>
     </Container>
