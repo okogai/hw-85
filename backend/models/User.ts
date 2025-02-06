@@ -7,6 +7,9 @@ interface UserFields {
     password: string;
     token: string;
     role: string;
+    displayName?: string;
+    googleID?: string;
+    avatar?: string;
 }
 
 type UserModel = Model<UserFields, {}, UserMethods>;
@@ -47,7 +50,10 @@ const UserSchema = new Schema<HydratedDocument<UserFields>, UserModel, UserMetho
     token: {
         type: String,
         required: [true, 'Token is required'],
-    }
+    },
+    displayName: String,
+    googleID: String,
+    avatar: String,
 });
 
 UserSchema.pre('save', async function(next) {
