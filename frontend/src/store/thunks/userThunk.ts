@@ -35,11 +35,18 @@ export const register = createAsyncThunk<
   { rejectValue: ValidationError }
 >(
   "users/register",
-  async (registerMutation: RegisterMutation, { rejectWithValue }) => {
+  async (data: RegisterMutation, { rejectWithValue }) => {
+    const formData = new FormData();
+    formData.append("username", data.username);
+    formData.append("password", data.password);
+    formData.append("displayName", data.displayName);
+    if (data.avatar) {
+      formData.append("avatar", data.avatar);
+    }
     try {
       const response = await axiosAPI.post<RegisterResponse>(
         "/users/register",
-        registerMutation,
+        formData,
       );
       return response.data;
     } catch (e) {

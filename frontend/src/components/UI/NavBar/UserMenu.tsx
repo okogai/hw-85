@@ -93,7 +93,7 @@ const UserMenu: React.FC<Props> = ({ user }) => {
       >
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
-      <Avatar sx={{ ml: 1 }} src={user.avatar} alt={user.displayName} />
+      <Avatar sx={{ ml: 1 }} src={user.googleID ? user.avatar : `http://localhost:8000/${user.avatar}`} alt={user.displayName} />
     </Grid>
   );
 };

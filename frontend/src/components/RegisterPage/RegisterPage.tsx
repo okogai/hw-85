@@ -18,6 +18,7 @@ import {
   selectRegisterLoading,
 } from "../../store/slices/userSlice.ts";
 import { register } from "../../store/thunks/userThunk.ts";
+import FileInput from '../UI/FileInput/FileInput.tsx';
 
 const RegisterPage = () => {
   const dispatch = useAppDispatch();
@@ -27,7 +28,22 @@ const RegisterPage = () => {
   const [form, setForm] = useState<RegisterMutation>({
     username: "",
     password: "",
+    displayName: "",
+    avatar: null
   });
+
+  const [filename, setFilename] = useState("");
+
+  const fileInputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, files } = e.target;
+    if (files) {
+      setForm((prevState) => ({
+        ...prevState,
+        [name]: files[0],
+      }));
+      setFilename(files[0].name);
+    }
+  };
 
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -100,6 +116,27 @@ const RegisterPage = () => {
                 onChange={inputChangeHandler}
                 error={Boolean(getFieldError("password"))}
                 helperText={getFieldError("password")}
+              />
+            </Grid>
+            <Grid size={12}>
+              <TextField
+                required
+                fullWidth
+                name="displayName"
+                label="Display name"
+                id="displayName"
+                value={form.displayName}
+                onChange={inputChangeHandler}
+                error={Boolean(getFieldError("displayName"))}
+                helperText={getFieldError("displayName")}
+              />
+            </Grid>
+            <Grid size={12}>
+              <FileInput
+                label="Avatar"
+                name="avatar"
+                filename={filename}
+                onChange={fileInputChangeHandler}
               />
             </Grid>
           </Grid>

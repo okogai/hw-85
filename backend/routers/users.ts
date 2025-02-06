@@ -4,6 +4,7 @@ import { Error } from 'mongoose';
 import auth, {RequestWithUser} from "../middleware/auth";
 import {OAuth2Client} from "google-auth-library";
 import config from "../config";
+import {imagesUpload} from "../multer";
 
 const usersRouter = express.Router();
 
@@ -55,12 +56,11 @@ usersRouter.post("/google", async (req, res, next) => {
     }
 });
 
-usersRouter.post('/register', async (req, res, next) => {
+usersRouter.post('/register', imagesUpload.single('avatar'), async (req, res, next) => {
+    const avatar = req.file ? `public/images/${req.file.filename}` : null;
+    const {username, password, displayName} = req.body;
     try {
-        const user = new User({
-            username: req.body.username,
-            password: req.body.password
-        });
+        const user = new User({username, password, displayName, avatar});
 
         user.generateToken();
 

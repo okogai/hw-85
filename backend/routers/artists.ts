@@ -43,8 +43,6 @@ artistsRouter.post('/', imagesUpload.single('photo'), auth, permit('user'), asyn
     }
 });
 
-
-
 artistsRouter.delete('/:id', auth, permit('user'), async (req, res, next) => {
     const user = (req as RequestWithUser).user;
 
